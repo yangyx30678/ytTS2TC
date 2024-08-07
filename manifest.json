@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+    "name": "YouTube Auto TS to TC",
+    "version": "1.0",
+    "description": "Automatically enables auto-translate for YouTube subtitles to Traditional Chinese.",
+    "permissions": [
+      "activeTab",
+      "scripting"
+    ],
+    "icons": {
+      "128": "icon.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://www.youtube.com/*"],
+        "js": ["content.js"]
+      }
+    ]
+  }
+  
