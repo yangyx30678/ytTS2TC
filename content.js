@@ -86,7 +86,6 @@ function setSubtitlesToTraditionalChinese() {
   }
 }
 
-
 // Function to observe the subtitles button
 function observeSubtitlesButton() {
   const subtitlesButton = document.querySelector('button.ytp-subtitles-button');
@@ -118,12 +117,23 @@ const playerObserver = new MutationObserver(() => {
       setSubtitlesToTraditionalChinese();
     } else {
       // Start observing the subtitles button if subtitles are not enabled
-      setTimeout(observeSubtitlesButton, 3000);
+      setTimeout(observeSubtitlesButton, 300);
     }
 
     playerObserver.disconnect();
   }
 });
+
+// Observe changes to the URL (for video change detection)
+let lastUrl = location.href;
+new MutationObserver(() => {
+  const currentUrl = location.href;
+  if (currentUrl !== lastUrl) {
+    lastUrl = currentUrl;
+    console.log('Video URL changed, resetting subtitles');
+    setSubtitlesToTraditionalChinese();
+  }
+}).observe(document, { subtree: true, childList: true });
 
 // Start observing when the script is loaded
 playerObserver.observe(document.body, { childList: true, subtree: true });
